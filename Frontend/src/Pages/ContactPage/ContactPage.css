@@ -1,0 +1,68 @@
+/* ContactPage.css */
+.contact-page {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 50px auto;
+  font-family: "Arial", sans-serif;
+  color: #f1f5f9; /* lighter text for dark cards */
+  background: #f9fafb; /* page background */
+}
+
+.contact-page h2 {
+  text-align: center;
+  color: #1e3a8a;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.trackier-info {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 40px;
+  color: #374151;
+}
+
+.contact-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card {
+  flex: 1 1 250px;
+  background: #1f2937; /* darker card background */
+  border-radius: 12px;
+  padding: 25px 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* darker shadow */
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  color: #f9fafb; /* text color for contrast */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45); /* stronger shadow on hover */
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  color: #60a5fa; /* slightly bright blue heading */
+  font-size: 18px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #d1d5db; /* softer text for readability */
+}
+
+.card a {
+  color: #d1d5db; /* light text */
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.card a:hover {
+  color: #60a5fa; /* highlight on hover */
+  text-decoration: underline;
+}
