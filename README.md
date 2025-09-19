@@ -131,7 +131,10 @@ node seed/syncTools.js
 npm run dev
 # or
 node Server.js
+
+# After running these commands, all default tools from defaultTools.js will be available in the connected MongoDB.
 ```
+
 
 ### **Frontend**
 
