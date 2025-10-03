@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom"; 
-import { useState, useEffect } from "react";  
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./ToolDetailsPage.css";
 
 function ToolDetailsPage() {
@@ -7,15 +7,15 @@ function ToolDetailsPage() {
 
   // state to store tool data fetched from backend
   const [tool, setTool] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   // fetch tool from backend using its id
   useEffect(() => {
     fetch(`http://localhost:5000/api/tools/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        setTool(data);       
-        setLoading(false);    
+        setTool(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching tool:", err);

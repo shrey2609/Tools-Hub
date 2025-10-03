@@ -11,16 +11,16 @@ import "./ToolDetails.css";
  */
 
 function ToolDetails() {
-    // Extract `id` from the URL (React Router)
+  // Extract `id` from the URL (React Router)
   const { id } = useParams();
 
   const [tool, setTool] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const backendBaseURL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const backendBaseURL =
+    import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-
-    /**
+  /**
    * useEffect Hook
    * ---------------
    * Fetch tool details whenever the `id` changes.
@@ -29,7 +29,7 @@ function ToolDetails() {
     fetch(`${backendBaseURL}/api/tools/${id}`)
       .then((res) => res.json()) // Parse response as JSON
       .then((data) => {
-        setTool(data);  // Save tool data in state
+        setTool(data); // Save tool data in state
         setLoading(false);
       })
       .catch((err) => {
@@ -38,8 +38,6 @@ function ToolDetails() {
       });
   }, [id, backendBaseURL]);
 
-
-  
   if (loading) {
     return <div className="tool-details">Loading...</div>;
   }
@@ -56,16 +54,39 @@ function ToolDetails() {
   return (
     <div className="tool-details">
       <h1 className="tool-title">{tool.name}</h1>
-      
-      <p><b>Category:</b> {tool.category}</p>
-      <p><b>Description:</b> {tool.description}</p>
+
+      <p>
+        <b>Category:</b> {tool.category}
+      </p>
+      <p>
+        <b>Description:</b> {tool.description}
+      </p>
+
+      {/* 📄 Company Document or fallback message */}
+      {tool.companyDocument && tool.companyDocument.trim() !== "" ? (
+        <a
+          href={tool.companyDocument}
+          target="_blank"
+          rel="noreferrer"
+          className="tool-btn doc-btn"
+        >
+          📄 View Company Document
+        </a>
+      ) : (
+        <p className="doc-message">
+          🚧 The company document is being prepared and will be uploaded soon.
+          Stay tuned!
+        </p>
+      )}
+
+      {/* 🔗 Official site */}
       <a
         href={tool.officialLink}
         target="_blank"
         rel="noreferrer"
-        className="tool-link"
+        className="tool-btn link-btn"
       >
-        🔗 Official Link
+        🔗 Visit Official Site
       </a>
 
       <div className="signup-guide">

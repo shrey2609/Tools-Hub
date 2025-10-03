@@ -6,7 +6,7 @@ import {
   getToolById,
   createTool,
   updateTool,
-  deleteTool
+  deleteTool,
 } from "../controllers/ToolController.js";
 
 const router = express.Router();

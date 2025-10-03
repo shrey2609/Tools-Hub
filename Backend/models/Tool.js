@@ -12,7 +12,8 @@ const toolSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true }, // unique tool id
   name: { type: String, required: true },
   category: { type: String, required: true },
-  description: { type: String, required: true }, 
+  description: { type: String, required: true },
+  companyDocument: { type: String },
   officialLink: { type: String },
   guide: guideSchema,
 });
