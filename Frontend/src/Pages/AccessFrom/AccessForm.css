@@ -1,0 +1,290 @@
+/* Page background + center layout */
+.af-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eef2ff 0%, #f6fbff 100%);
+  padding: 24px;
+  box-sizing: border-box;
+  font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+}
+
+/* Card */
+.af-card {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 18px 40px rgba(19, 35, 71, 0.08), 0 6px 12px rgba(19,35,71,0.04);
+  border: 1px solid rgba(16,24,40,0.04);
+}
+
+/* Header */
+.af-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.af-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #e6f0ff, #fff5f0);
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  margin: 0 auto 12px;
+  font-size: 22px;
+  box-shadow: 0 6px 18px rgba(14,30,80,0.04);
+}
+
+.af-title {
+  margin: 0;
+  font-size: 22px;
+  color: #0f1724;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.af-sub {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #55607a;
+}
+
+/* Form layout */
+.af-form {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Row (label + input) */
+.af-row label {
+  display: block;
+  font-size: 13px;
+  color: #475569;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.af-row input[type="text"],
+.af-row input[type="email"],
+.af-row select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e6e9ef;
+  background: #fff;
+  font-size: 14px;
+  color: #0f1724;
+  outline: none;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+  box-shadow: 0 2px 6px rgba(16,24,40,0.02);
+}
+
+/* Focus state */
+.af-row input:focus,
+.af-row select:focus {
+  border-color: #2b6ef6;
+  box-shadow: 0 6px 20px rgba(43,110,246,0.08);
+  transform: translateY(-1px);
+}
+
+/* Placeholder color */
+.af-row input::placeholder {
+  color: #9aa4b2;
+}
+
+/* Submit button */
+.af-submit {
+  margin-top: 6px;
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  color: white;
+  background: linear-gradient(90deg, #2b6ef6, #1752d6);
+  box-shadow: 0 8px 28px rgba(43,110,246,0.14);
+  transition: transform 0.14s ease, box-shadow 0.14s ease, opacity 0.12s ease;
+}
+
+.af-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 38px rgba(43,110,246,0.18);
+  opacity: 0.98;
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .af-card {
+    padding: 20px;
+    border-radius: 14px;
+  }
+  .af-badge {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+
+
+/* left-right */
+.roles-container {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 10px;
+  height: 350px; /* fixed height */
+  overflow: hidden;
+}
+
+.categories {
+  width: 35%;
+  border-right: 1px solid #ddd;
+  background: #f9f9f9;
+  overflow-y: auto;
+}
+
+.category {
+  padding: 10px;
+  cursor: pointer;
+  white-space: nowrap; /* prevent breaking */
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.category.active {
+  background: #e5f1ff;
+  font-weight: bold;
+}
+
+.sub-roles {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.sub-roles input {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.sub-roles ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sub-roles li {
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.sub-roles li:hover {
+  background: #f2f2f2;
+}
+
+.sub-roles li.selected {
+  background: #007bff;
+  color: white;
+}
+
+
+
+
+
+
+
+
+
+
+.role-picker {
+  position: relative;
+  width: 100%;
+}
+
+.role-input {
+  border: 1px solid #ccc;
+  padding: 8px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 6px;
+}
+
+.role-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 6px;
+  margin-top: 4px;
+  z-index: 999;
+}
+
+.role-search {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+}
+
+.dropdown-panels {
+  display: flex;
+  height: 250px;
+}
+
+.categories {
+  width: 40%;
+  border-right: 1px solid #eee;
+  overflow-y: auto;
+}
+
+.sub-roles {
+  width: 60%;
+  overflow-y: auto;
+}
+
+.category, .sub-role {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.category.active {
+  background: #f1f3f4;
+  font-weight: bold;
+}
+
+.sub-role:hover {
+  background: #f1f3f4;
+}
+
+
+.role-selected {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clear-role {
+  cursor: pointer;
+  font-weight: bold;
+  color: #666;
+}
+
+.clear-role:hover {
+  color: #000;
+}

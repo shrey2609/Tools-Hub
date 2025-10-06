@@ -12,12 +12,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/resource-manager": "^6.2.0",
+    "axios": "^1.12.2",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "mongodb": "^6.19.0",
     "mongoose": "^7.8.7",
-    "multer": "^2.0.2"
+    "multer": "^2.0.2",
+    "node-cron": "^4.2.1",
+    "qs": "^6.14.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
