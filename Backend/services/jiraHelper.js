@@ -7,7 +7,7 @@ const JIRA_EMAIL = process.env.JIRA_EMAIL;
 const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN;
 
 export const getIssueDetails = async (issueKey) => {
-  try {
+  try { 
     const response = await axios.get(
       `https://devanshpandit2004.atlassian.net/rest/api/3/issue/${issueKey}`,
       {
