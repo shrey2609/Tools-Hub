@@ -17,7 +17,6 @@ A comprehensive RAG system built with LangChain that supports real-time data ing
 ```
 rag_base_3/
 ├── api_server.js                 # Main API server for chat functionality
-├── chat_ui.html                  # Modern chat interface
 ├── rag_chain.js                  # RAG chain implementation with LangChain
 ├── clean_db.js                   # Database cleanup utilities
 ├── github_webhook_handler.js     # GitHub webhook handler
