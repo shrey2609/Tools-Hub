@@ -6,7 +6,7 @@ export const createJiraWebhook = async (
   issueKey,
   commentAuthorAccountId
 ) => {
-  const { JIRA_API_TOKEN, JIRA_EMAIL } = process.env;
+  const { JIRA_API_TOKEN, JIRA_EMAIL, JIRA_BASE_URL } = process.env;
 
   if (!commentBody || !issueKey || !commentAuthorAccountId) {
     throw createError(400, "Required fields missing");
@@ -17,7 +17,7 @@ export const createJiraWebhook = async (
   try {
     //Fetch issue details to get reporter accountId
     const issueDetails = await axios.get(
-      `https://devanshpandit2004.atlassian.net/rest/api/3/issue/${issueKey}`,
+      `${JIRA_BASE_URL}/rest/api/3/issue/${issueKey}`,
       {
         auth: {
           username: JIRA_EMAIL,
@@ -53,11 +53,11 @@ export const transitionChangeWithComment = async (
   transitionName,
   commentText
 ) => {
-  const { JIRA_API_TOKEN, JIRA_EMAIL } = process.env;
+  const { JIRA_API_TOKEN, JIRA_EMAIL, JIRA_BASE_URL } = process.env;
   try {
     //Fetch available transitions
     const transitionsResponse = await axios.get(
-      `https://devanshpandit2004.atlassian.net/rest/api/3/issue/${issueKey}/transitions`,
+      `${JIRA_BASE_URL}/rest/api/3/issue/${issueKey}/transitions`,
       {
         auth: {
           username: JIRA_EMAIL,
@@ -81,7 +81,7 @@ export const transitionChangeWithComment = async (
 
     //Perform the transition
     await axios.post(
-      `https://devanshpandit2004.atlassian.net/rest/api/3/issue/${issueKey}/transitions`,
+      `${JIRA_BASE_URL}/rest/api/3/issue/${issueKey}/transitions`,
       {
         transition: { id: targetTransition.id },
       },
@@ -99,7 +99,7 @@ export const transitionChangeWithComment = async (
 
     //Add a comment to the issue
     await axios.post(
-      `https://devanshpandit2004.atlassian.net/rest/api/3/issue/${issueKey}/comment`,
+      `${JIRA_BASE_URL}/rest/api/3/issue/${issueKey}/comment`,
       {
         body: {
           type: "doc",

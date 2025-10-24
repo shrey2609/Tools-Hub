@@ -9,7 +9,7 @@ export const grantIamAccess = async (email, role, condition = null) => {
 
     const primitiveRoles = ["roles/viewer", "roles/editor", "roles/owner"];
 
-    let finalRole = role.startsWith("roles/") ? role : `roles/${role}`;
+      let finalRole =  role;
 
     
     const newBinding = {
@@ -17,10 +17,10 @@ export const grantIamAccess = async (email, role, condition = null) => {
       members: [`user:${email}`],
       ...(condition && !primitiveRoles.includes(finalRole) ? { condition } : {}),
     };
-
     bindings.push(newBinding);
 
 
+    // finding the unique bindings
     const uniqueBindings = [];
     const seen = new Set();
 
@@ -37,6 +37,7 @@ export const grantIamAccess = async (email, role, condition = null) => {
         seen.add(key);
       }
     }
+    
 
     const newPolicy = {
       version: 3,

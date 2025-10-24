@@ -1,5 +1,5 @@
 import axios from "axios";
-import { grantIamAccess } from "../services/grantIamAccess.js";
+import { grantIamAccess } from "../services/grantIAMAccess.js";
 import { buildIamCondition } from "../services/buildIamCondition.js";
 import {
   createJiraWebhook,
@@ -67,7 +67,8 @@ export const handlePermission = async (req, res) => {
         access_duration,
         service,
         resource,
-        role
+        role,
+        email
       );
       await grantIamAccess(email, role, condition);
       console.log(`IAM access granted to ${email} with role ${role}`);

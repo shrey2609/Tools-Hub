@@ -1,6 +1,9 @@
 import Zoho from "../models/zohoRM.js";
 import axios from "axios";
 import qs from "qs";
+// import dotenv from "dotenv";
+// dotenv.config();
+
 
 export const getAccessToken = async () => {
   const tokenData = await Zoho.findOne({ key: "zoho-global-token" });
@@ -10,9 +13,11 @@ export const getAccessToken = async () => {
   const { access_token, refresh_token, last_updated, expires_in } = tokenData;
 
   const expiryBuffer = 5 * 60 * 1000; 
-
+    
   const expiryTime = new Date(last_updated).getTime() + expires_in * 1000;
   const isExpired = Date.now() > expiryTime - expiryBuffer;
+   console.log("Accesstoken:", access_token);
+   console.log("refreshupper:", refresh_token);
 
   if (!isExpired) {
     return access_token;
@@ -51,6 +56,9 @@ export const getAccessToken = async () => {
     );
 
     console.log("Access token refreshed successfully.");
+    console.log("Accesstoken:",access_token);
+    console.log("refreshToken:",refresh_token);
+    
 
     return newAccessToken;
   } catch (error) {

@@ -9,7 +9,7 @@ export const createJiraTask = async (
   managerEmail
 ) => {
   try {
-    const { JIRA_EMAIL, JIRA_API_TOKEN } = process.env;
+    const { JIRA_EMAIL, JIRA_API_TOKEN, JIRA_BASE_URL } = process.env;
 
     if (!JIRA_EMAIL || !JIRA_API_TOKEN) {
       throw new Error("Missing Jira credentials in environment variables.");
@@ -20,7 +20,7 @@ export const createJiraTask = async (
     );
     //Get Jira Account ID using email
     const managerSearch = await axios.get(
-      `https://devanshpandit2004.atlassian.net/rest/api/3/user/search?query=${managerEmail}`,
+      `${JIRA_BASE_URL}/rest/api/3/user/search?query=${managerEmail}`,
       {
         headers: {
           Authorization: `Basic ${auth}`,
@@ -30,7 +30,7 @@ export const createJiraTask = async (
     );
 
     const userSearch = await axios.get(
-      `https://devanshpandit2004.atlassian.net/rest/api/3/user/search?query=${email}`,
+      `${JIRA_BASE_URL}/rest/api/3/user/search?query=${email}`,
       {
         headers: {
           Authorization: `Basic ${auth}`,
@@ -106,7 +106,7 @@ export const createJiraTask = async (
     };
 
     const issueRes = await axios.post(
-      "https://devanshpandit2004.atlassian.net/rest/api/3/issue",
+      `${JIRA_BASE_URL}/rest/api/3/issue`,
       payload,
       {
         headers: {
@@ -114,6 +114,7 @@ export const createJiraTask = async (
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        timeout: 20000, 
       }
     );
     console.log("Task created successfully:", issueRes.data);
@@ -122,8 +123,7 @@ export const createJiraTask = async (
       jiraIssue: {
         id: issueRes.data.id,
         key: issueRes.data.key,
-        // url: issueRes.data.self,
-        url: `https://devanshpandit2004.atlassian.net/browse/${issueRes.data.key}`, // ✅ UI-friendly link
+        url: `${JIRA_BASE_URL}/browse/${issueRes.data.key}`, 
       },
     };
   } catch (error) {

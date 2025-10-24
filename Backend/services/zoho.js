@@ -2,6 +2,11 @@ import Zoho from "../models/zohoRM.js";
 import axios from "axios";
 import qs from "qs";
 import { getAccessToken } from "../seed/zohohelper.js";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const ZOHO_BASE_URL = process.env.ZOHO_BASE_URL;
 
 
 // Function to get/refresh Zoho Access Token
@@ -81,7 +86,7 @@ export const getReportingManagerEmail = async(email) => {
     const managerId = reportingManagerDetails.split(" ").pop(); 
 
     const managerResponse = await axios.get(
-      `https://people.zoho.in/api/forms/P_EmployeeView/records?searchColumn=Employeeid&searchValue=${managerId}`,
+      `${ZOHO_BASE_URL}searchColumn=Employeeid&searchValue=${managerId}`,
       {
         headers: {
           Authorization: `Zoho-oauthtoken ${access_token}`,

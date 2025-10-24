@@ -6,6 +6,7 @@ import  createError from "http-errors";
 export const askPermission = async (req, res) => {
   try {
     const { email, role, service, access_duration, resource } = req.body;
+    // console.log("email:",email, role, access_duration);
     
 
     if (!email || !service || !access_duration || !role ) {

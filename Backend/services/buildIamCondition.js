@@ -7,19 +7,8 @@ export const buildIamCondition = (access_duration, service, resource, role) => {
     return null;
   }
 
-//   if (!resource || primitiveRoles.includes(role)) {
-//     return null; 
-// }
-
 
   const parts = [];
-
-  // if (access_duration !== "lifetime") {
-  //   const days = parseInt(access_duration);
-  //   const expiryDate = new Date();
-  //   expiryDate.setDate(expiryDate.getDate() + days);
-  //   parts.push(`request.time < timestamp("${expiryDate.toISOString()}")`);
-  // }
 
 if (access_duration && String(access_duration).toLowerCase() !== "lifetime") {
     const days = parseInt(access_duration, 10);
@@ -29,7 +18,7 @@ if (access_duration && String(access_duration).toLowerCase() !== "lifetime") {
       parts.push(`request.time < timestamp("${expiryDate.toISOString()}")`);
     }
   }
-  
+
 
   if (service === "GCP" && resource) {
     const resourceNames = resource
@@ -37,7 +26,6 @@ if (access_duration && String(access_duration).toLowerCase() !== "lifetime") {
       .map((name) => name.trim())
       .filter(Boolean)
       .map((name) => { 
-        // `resource.name.startsWith("projects/_/buckets/${name}")`);
       if (role.startsWith("roles/storage")) {
           return `resource.name.startsWith("projects/_/buckets/${name}")`;
         } else if (role.startsWith("roles/bigquery")) {
