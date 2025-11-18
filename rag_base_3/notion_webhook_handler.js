@@ -30,7 +30,6 @@ import "dotenv/config";
 import fs from "fs/promises";
 import { Pinecone as PineconeClient } from "@pinecone-database/pinecone";
 
-import { pageLoader as pageLoaderFactory } from "./notion_seeding/notion_data_extracter.js"; // should export async pageLoader()
 import {
   preprocessPageDocs,
   saveStateToPostgres,
@@ -41,6 +40,9 @@ const PORT = process.env.NOTION_WEBHOOK_PORT || 3000;
 const STATE_FILE =
   process.env.STATE_FILE || "./seeding/state_after_embedding.json";
 const PINECONE_NAMESPACE = process.env.PINECONE_NAMESPACE || undefined;
+const recentEvents = new Map();
+const DEBOUNCE_MS = 10000; // 10 seconds
+
 
 const app = express();
 app.use(bodyParser.json({ limit: "1mb" }));
@@ -116,6 +118,13 @@ app.post("/notion-webhook", async (req, res) => {
     }
 
     console.log(`[webhook] Received event for page: ${pageId}`);
+    const now = Date.now();
+    const last = recentEvents.get(pageId);
+    if (last && now - last < DEBOUNCE_MS) {
+      console.log(`[webhook] Ignoring duplicate event for ${pageId}`);
+      return res.status(200).json({ ok: true, result: "duplicate-ignored" });
+    }
+    recentEvents.set(pageId, now);
 
     // Load existing state (JSON or Postgres)
     const usePostgres = !!process.env.DATABASE_URL;
@@ -135,20 +144,9 @@ app.post("/notion-webhook", async (req, res) => {
     // Instantiate a new loader for this specific page or call that loader but we will create a new NotionAPILoader here for the page.
     // Simpler: call pageLoaderFactory() to get the loader you use; if it supports loading by id param we should modify factory.
     // We'll attempt to call the factory then filter for the pageId in returned docs.
-    let pageDocs = [];
+    let pageDocs =[]
     try {
-      // If your pageLoader factory returns docs for a root page, you'd need a loader that can load a single page.
-      // We'll attempt to call it and then find the matching page
-      const allDocs = await pageLoaderFactory(); // returns array of docs (your current implementation)
-      // Try to find doc with matching metadata id
-      pageDocs = allDocs.filter((d) => {
-        const meta = d.metadata || {};
-        const candidate =
-          meta.notion_page_id || meta.pageId || meta.page_id || meta.id;
-        return candidate === pageId || d.id === pageId;
-      });
-      // If not found, attempt creating a new loader instance specifically for this page by importing NotionAPILoader dynamically
-      if (!pageDocs || pageDocs.length === 0) {
+      // creating a new loader instance specifically for this page by importing NotionAPILoader dynamically
         // dynamic import - fallback: create a loader for the specific page id
         const { NotionAPILoader } = await import(
           "@langchain/community/document_loaders/web/notionapi"
@@ -159,7 +157,6 @@ app.post("/notion-webhook", async (req, res) => {
           type: "page",
         });
         pageDocs = await loader.load();
-      }
     } catch (e) {
       console.error("Failed to load page docs for webhook:", e);
       return res.status(500).json({ ok: false, error: "failed to load page" });

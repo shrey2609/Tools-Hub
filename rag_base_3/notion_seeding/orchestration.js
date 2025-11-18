@@ -2,7 +2,7 @@
 import "dotenv/config";
 import fs from "fs/promises";
 
-import { pageLoader as pageLoaderFactory } from "./notion_data_extracter.js";
+import { loadAllPages as pageLoaderFactory } from "./notion_data_extracter.js";
 import { preprocessPageDocs, saveStateToPostgres } from "./data_preprocess.js";
 import { embedAndUpsertWithLangChain } from "./langchain_embed_upsert.js";
 
