@@ -23,11 +23,11 @@ export const handlePermission = async (req, res) => {
       });
     }
 
-    const service = issueDetails.fields.customfield_10094;
-    const resource = issueDetails.fields.customfield_10095;
-    const access_duration = issueDetails.fields.customfield_10096;
-    const role = issueDetails.fields.customfield_10092;
-    const email = issueDetails.fields.customfield_10093;
+    const service = issueDetails.fields.customfield_10819;
+    const resource = issueDetails.fields.customfield_10817;
+    const access_duration = issueDetails.fields.customfield_10818;
+    const role = issueDetails.fields.customfield_10821;
+    const email = issueDetails.fields.customfield_10820;
 
     const authenticationCheck = await createJiraWebhook(
       commentBody,

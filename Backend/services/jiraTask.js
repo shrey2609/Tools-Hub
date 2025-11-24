@@ -49,7 +49,7 @@ export const createJiraTask = async (
 
     const payload = {
       fields: {
-        project: { key: "KAN" },
+        project: { key: "ARP" },
         summary: `Access Request: ${service} from ${email}.`,
         description: {
           type: "doc",
@@ -90,18 +90,18 @@ export const createJiraTask = async (
             },
           ],
         },
-        issuetype: { name: "Access" },
+        issuetype: { name: "Task" },
         assignee: { accountId: userAccountId },
         reporter: { accountId: managerAccountId },
-        priority: { name: "High" },
-        labels: ["api-created", "zoho"],
+        // priority: { name: "High" },
+        // labels: ["api-created", "zoho"],
 
     
-        customfield_10093: email,         
-        customfield_10094: service,    
-        customfield_10092: role,        
-        customfield_10096: access_duration === "lifetime" ? null : Number(access_duration),    
-        customfield_10095: resource,    
+        customfield_10820: email,         
+        customfield_10819: service,    
+        customfield_10821: role,        
+        customfield_10818: access_duration === "lifetime" ? null : Number(access_duration),    
+        customfield_10817: resource,    
       },
     };
 

@@ -77,7 +77,7 @@ export const getReportingManagerEmail = async(email) => {
     }
 
     const employee = employeeData[0];
-    const reportingManagerDetails = employee["Reporting Manager"];
+    const reportingManagerDetails = employee["Reporting To"];
 
     if (!reportingManagerDetails) {
       throw new Error("No Reporting Manager found.")
@@ -99,12 +99,13 @@ export const getReportingManagerEmail = async(email) => {
       throw new Error("No manager found with id")
     }
     const manager = managerData[0];
-    const reportingManagerEmail = manager["Email address"];
+    const reportingManagerEmail = manager["Email ID"];
 
     if (!reportingManagerEmail) {
       throw new Error("Manager email not found")
     }
-
+     console.log("manager:",reportingManagerEmail);
+     
     return reportingManagerEmail;
 
 };

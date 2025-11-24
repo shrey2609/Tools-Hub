@@ -7,8 +7,6 @@ import toast, { Toaster } from "react-hot-toast";
 const BASIC_ROLES = [
   { value: "roles/viewer", label: "Viewer" },
   { value: "roles/editor", label: "Editor" },
-  // { value: "roles/owner", label: "Owner" },
-  // { value: "roles/browser", label: "Browser" },
 ];
 
 const AccessFrom = () => {
@@ -34,7 +32,7 @@ const AccessFrom = () => {
     const fetchRoles = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/zohoRM/gcp/roles"
+          "http://localhost:5000/api/access/gcp/roles"
         );
         setRoles(res.data);
       } catch (err) {
@@ -101,7 +99,7 @@ const AccessFrom = () => {
     const toastId = toast.loading("Submitting request...");
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/zohoRM/ask-permission",
+        "http://localhost:5000/api/access/ask-permission",
         formData
       );
       console.log("Backend response:", res.data);

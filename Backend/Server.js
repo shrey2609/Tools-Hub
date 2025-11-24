@@ -28,7 +28,7 @@ app.use("/Image", express.static(path.join(__dirname, "Public/Image")));
 
 // Routes
 app.use("/api/tools", toolRoutes);
-app.use("/api/zohoRM", zohoRoutes)
+app.use("/api/access", zohoRoutes)
 
 
 

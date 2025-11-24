@@ -18,7 +18,7 @@ export const askPermission = async (req, res) => {
 
     
     //create jira task for requesting user.
-    const jiraTask = await createJiraTask(email, role, service, access_duration, resource, managerEmail);
+    // const jiraTask = await createJiraTask(email, role, service, access_duration, resource, managerEmail);
 
  
     res.status(200).json({
