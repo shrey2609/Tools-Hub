@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 
-// ✅ Serve static files from Public/Image folder
+// Serve static files from Public/Image folder
 const __dirname = path.resolve();
 app.use("/Image", express.static(path.join(__dirname, "Public/Image")));
 
@@ -35,12 +35,9 @@ app.use("/api/access", zohoRoutes)
 // Health check
 app.get("/", (req, res) => res.send("✅ Backend server is running"));
 
-// MongoDB connection + Start server only after successful connect
+// MongoDB connection - removed deprecated options
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB connected successfully");
     app.listen(PORT, () =>
@@ -49,11 +46,15 @@ mongoose
   })
   .catch((err) => {
     console.error("❌ MongoDB connection failed:", err.message);
-    process.exit(1); // stop app if DB not connected
+    process.exit(1);
   });
 
-// ✅ Global error handler (last middleware)
+// Global error handler
 app.use((err, req, res, next) => {
   console.error("🔥 Server error:", err.stack);
-  res.status(500).json({ message: "Something went wrong", error: err.message });
+  res.status(500).json({
+    message: "Something went wrong", 
+    error: err.message,
+  });
 });
+

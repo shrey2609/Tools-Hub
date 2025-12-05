@@ -6,27 +6,65 @@
 
 .tool-title {
   font-size: 26px;
-  margin-bottom: 10px;
-}
-
-
-.tool-link {
-  display: inline-block;
-  margin-top: 10px;
-  text-decoration: none;
-  color: blue;
-}
-
-.tool-link:hover {
-  text-decoration: underline;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #333;
 }
 
 .signup-guide {
   margin-top: 20px;
+  font-size: 15px;
+  color: #555;
 }
 
 .not-found {
   padding: 20px;
   text-align: center;
   color: red;
+  font-weight: bold;
+}
+
+/* 🔘 Common button style */
+.tool-btn {
+  display: inline-block;
+  padding: 8px 14px; /* smaller padding */
+  margin: 8px 6px; /* smaller spacing */
+  border-radius: 6px;
+  font-size: 14px; /* smaller font */
+  font-weight: 500; /* lighter text */
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* softer shadow */
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+/* 📄 Document button */
+.doc-btn {
+  background: linear-gradient(135deg, #6fb1fc, #4364f7);
+}
+.doc-btn:hover {
+  background: linear-gradient(135deg, #4364f7, #2a3eb1);
+  transform: translateY(-2px);
+}
+
+/* 🔗 Official site button */
+.link-btn {
+  background: linear-gradient(135deg, #5fd38d, #28a745);
+}
+.link-btn:hover {
+  background: linear-gradient(135deg, #28a745, #1e7e34);
+  transform: translateY(-2px);
+}
+/* 📝 Message when document is not available */
+.doc-message {
+  margin: 10px 0;
+  padding: 10px 14px;
+  border-left: 4px solid #4facfe;
+  background: #f0f8ff;
+  color: #333;
+  font-size: 14px;
+  font-style: italic;
+  border-radius: 6px;
 }

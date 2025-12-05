@@ -1,6 +1,6 @@
 # Tools-Hub
-This project is a centralized engineering tools hub with an integrated chatbot powered by RAG (Retrieval-Augmented Generation)
 
+This project is a centralized engineering tools hub with an integrated chatbot powered by RAG (Retrieval-Augmented Generation)
 
 # **Engineering Tools Wiki**
 
@@ -11,26 +11,27 @@ Built using **React.js** (frontend) and **Node.js + Express + MongoDB** (backend
 
 ## **Frontend Features**
 
-* **Home Page:** Displays a list of engineering tools in a card layout.
-* **Tool Details:** View detailed information about each tool, including category, description, official link, and signup/login/usage guides.
-* **Responsive Design:** Works seamlessly on desktop and mobile.
-* **Contact Page:** Shows company contact information with clickable email, phone, and address links.
-* **Navbar:** Stays fixed at the top while scrolling.
-* **Chatbot Widget:** Interactive demo chatbot that scrolls automatically to latest messages and supports sending messages via the Enter key.
+- **Home Page:** Displays a list of engineering tools in a card layout.
+- **Tool Details:** View detailed information about each tool, including category, description, official link, and signup/login/usage guides.
+- **Responsive Design:** Works seamlessly on desktop and mobile.
+- **Contact Page:** Shows company contact information with clickable email, phone, and address links.
+- **Navbar:** Stays fixed at the top while scrolling.
+- **Chatbot Widget:** Interactive demo chatbot that scrolls automatically to latest messages and supports sending messages via the Enter key.
 
 ---
 
 ## **Backend Features**
 
-* **Node.js + Express API:** Serves tool data from MongoDB.
-* **MongoDB Database:** Stores tools with details and guides.
-* **Seed & Sync Scripts:**
+- **Node.js + Express API:** Serves tool data from MongoDB.
+- **MongoDB Database:** Stores tools with details and guides.
+- **Seed & Sync Scripts:**
 
-  * `seedTools.js` — Adds default tools to the database.
-  * `syncTools.js` — Updates existing tools with latest default data.
-* **Upsert Support:** Any changes in `defaultTools.js` can be synced with the database.
+  - `seedTools.js` — Adds default tools to the database.
+  - `syncTools.js` — Updates existing tools with latest default data.
 
---------------------------------------------------------------------------------------------------------------------------------------------
+- **Upsert Support:** Any changes in `defaultTools.js` can be synced with the database.
+
+---
 
 ## **Frontend File Structure**
 
@@ -90,7 +91,7 @@ TASK
 └── Frontend
 ```
 
--------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## **Installation & Setup**
 
@@ -135,7 +136,6 @@ node Server.js
 # After running these commands, all default tools from defaultTools.js will be available in the connected MongoDB.
 ```
 
-
 ### **Frontend**
 
 1. Navigate to the frontend folder:
@@ -162,7 +162,7 @@ VITE_API_URL=http://localhost:5000
 npm run dev
 ```
 
-------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## **Adding in new DB or Updating Tools**
 
@@ -174,6 +174,7 @@ npm run dev
   name: "New Tool",
   category: "Category",
   description: "Tool description",
+  companydocument: " ",
   officialLink: "https://example.com",
   guide: {
     about: "",
@@ -195,4 +196,3 @@ node seed/syncTools.js
 ---
 
 -
-
