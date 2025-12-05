@@ -8,6 +8,7 @@ import ChatbotWidget from "./Component/ChatbotWidget/ChatbotWidget";
 import { ChatbotProvider } from "./Component/ChatbotWidget/ChatbotContext";
 import ContactPage from "./Pages/ContactPage/ContactPage";
 import ToolDetailsPage from "./Pages/ToolDetailsPage/ToolDetailsPage";
+import AccessFrom from "./Pages/AccessFrom/AccessFrom";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/tools/:id" element={<ToolDetails />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/tools/:id" element={<ToolDetailsPage />} />
+          <Route path="/access" element={<AccessFrom />} />
         </Routes>
 
         {/* Chatbot is always available, floating in UI */}
