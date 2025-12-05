@@ -10,11 +10,14 @@ import { config } from "./config.js";
 import crypto from "crypto";
 // import { sha256 } from "@langchain/core/utils/hash";
 
-// --- Helper Functions for Processing ---
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+const BRANCHNAME = "master"; // depending on your repos
+// const GITHUBREPOS =
+//   config[`githubReposBranch${capitalizeFirstLetter(BRANCHNAME)}`];
+const GITHUBREPOS = config.githubReposBranchMaster;
 
-/**
- * A simple function to sanitize and normalize the content of markdown files.
- */
 function sanitizeContent(text) {
   let s = String(text ?? "");
   // Normalize whitespace
@@ -143,9 +146,10 @@ async function fetch_processs() {
       throw last;
     }
     async function fetchMdFilesFromRepo(repoStr) {
+      console.log(`Fetching from repo: ${repoStr}`);
       const loader = new GithubRepoLoader(`https://github.com/${repoStr}`, {
         recursive: true,
-        // branch: "main",
+        branch: BRANCHNAME,
         accessToken: process.env.GITHUB_ACCESS_TOKEN,
         maxRetries: 5, // be more forgiving
         verbose: true, // helpful logs
@@ -157,6 +161,7 @@ async function fetch_processs() {
           "build/",
           ".next/",
           "coverage/",
+
           // include-only markdown
           "**/*",
           "!**/",
@@ -166,7 +171,7 @@ async function fetch_processs() {
       });
       // run loader.load with our outer retry
       const allDocs = await retry(() => loader.load(), {
-        retries: 4,
+        retries: 1,
         baseDelay: 1000,
       });
       return allDocs.filter((doc) =>
@@ -178,7 +183,7 @@ async function fetch_processs() {
       "Starting to fetch Markdown files from all configured repositories..."
     );
     const allMdDocs = [];
-    for (const repoStr of config.githubRepos) {
+    for (const repoStr of GITHUBREPOS) {
       try {
         const repoMdDocs = await fetchMdFilesFromRepo(repoStr);
         console.log(`- ${repoStr}: Loaded ${repoMdDocs.length} Markdown files`);
@@ -221,4 +226,4 @@ async function main() {
 }
 
 // comment out to start the seed
-// main();
+main();
