@@ -104,7 +104,6 @@ export const getReportingManagerEmail = async(email) => {
     if (!reportingManagerEmail) {
       throw new Error("Manager email not found")
     }
-     console.log("manager:",reportingManagerEmail);
      
     return reportingManagerEmail;
 

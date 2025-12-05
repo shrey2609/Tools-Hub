@@ -16,8 +16,7 @@ export const getAccessToken = async () => {
     
   const expiryTime = new Date(last_updated).getTime() + expires_in * 1000;
   const isExpired = Date.now() > expiryTime - expiryBuffer;
-   console.log("Accesstoken:", access_token);
-   console.log("refreshupper:", refresh_token);
+
 
   if (!isExpired) {
     return access_token;
@@ -54,10 +53,6 @@ export const getAccessToken = async () => {
         last_updated: new Date(),
       }
     );
-
-    console.log("Access token refreshed successfully.");
-    console.log("Accesstoken:",access_token);
-    console.log("refreshToken:",refresh_token);
     
 
     return newAccessToken;

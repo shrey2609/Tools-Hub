@@ -8,11 +8,16 @@ import {
 import createError from "http-errors";
 import { getIssueDetails } from "../services/jiraHelper.js";
 
+
+const jiraOwnerAccountId = process.env.JIRA_ACCOUNT_ID_OWNER; 
+
 export const handlePermission = async (req, res) => {
   try {
+
     const commentBody = req.body?.comment?.body;
     const issueKey = req.body?.issue?.key;
     const commentAuthorAccountId = req.body?.comment?.author?.accountId;
+    
 
     // Fetch full issue details
     const issueDetails = await getIssueDetails(issueKey);
@@ -22,6 +27,12 @@ export const handlePermission = async (req, res) => {
         message: `Issue ${issueKey} not found or deleted. Ignoring webhook.`,
       });
     }
+    if (commentAuthorAccountId === jiraOwnerAccountId) {
+      return res.status(200).json({
+      success: false,
+      message: "Ignored comment from issue owner.",
+    });
+  }
 
     const service = issueDetails.fields.customfield_10819;
     const resource = issueDetails.fields.customfield_10817;
@@ -71,7 +82,6 @@ export const handlePermission = async (req, res) => {
         email
       );
       await grantIamAccess(email, role, condition);
-      console.log(`IAM access granted to ${email} with role ${role}`);
 
       const transitionToDoneAndComment = await transitionChangeWithComment(
         issueKey,
@@ -83,7 +93,6 @@ export const handlePermission = async (req, res) => {
         .json({ success: true, message: "Permission process completed." });
     }
   } catch (error) {
-    console.log("Error occured in webhook Permission: ", error);
     throw createError(500, "Error occured in webhook Permission.", {
       message: error.message,
       status: error.response?.status,

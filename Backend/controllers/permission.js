@@ -5,9 +5,7 @@ import  createError from "http-errors";
 // handle ask permission request from iternal wiki.
 export const askPermission = async (req, res) => {
   try {
-    const { email, role, service, access_duration, resource } = req.body;
-    // console.log("email:",email, role, access_duration);
-    
+    const { email, role, service, access_duration, resource } = req.body;    
 
     if (!email || !service || !access_duration || !role ) {
       throw createError(400, "Required fields missing");
@@ -18,7 +16,7 @@ export const askPermission = async (req, res) => {
 
     
     //create jira task for requesting user.
-    // const jiraTask = await createJiraTask(email, role, service, access_duration, resource, managerEmail);
+    const jiraTask = await createJiraTask(email, role, service, access_duration, resource, managerEmail);
 
  
     res.status(200).json({
@@ -28,7 +26,6 @@ export const askPermission = async (req, res) => {
       jiraTask: jiraTask.jiraIssue,       
     });
   } catch (error) {
-     console.log("Error occured: ", error);
      return res.status(500).json({success:false, error:error})
   }
 };

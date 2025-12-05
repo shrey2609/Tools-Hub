@@ -25,4 +25,4 @@ export const getIssueDetails = async (issueKey) => {
     }
     throw error;
   }
-  }
+}

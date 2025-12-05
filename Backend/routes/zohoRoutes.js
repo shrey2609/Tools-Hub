@@ -16,7 +16,9 @@ router.post("/", getOauthToken)
  router.post("/ask-permission", askPermission);
 
  // route for handling jira comment webhook.
- router.post("/webhook/handle-permission", handlePermission);
+//  router.post("/webhook/handle-permission", handlePermission);
+ router.post("/webhook", handlePermission);
+
 
 
  router.get("/gcp/roles", async (req, res) => {

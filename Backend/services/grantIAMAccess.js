@@ -46,7 +46,6 @@ export const grantIamAccess = async (email, role, condition = null) => {
     };
 
     const result = await setIamPolicy(uniqueBindings, etag);
-    console.log("IAM Policy updated:", result);
 
   } catch (err) {
     console.error(err.response?.data || err.message);

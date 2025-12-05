@@ -13,10 +13,12 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/resource-manager": "^6.2.0",
+    "@google-cloud/secret-manager": "^6.1.1",
     "axios": "^1.12.2",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
+    "fs": "^0.0.1-security",
     "mongodb": "^6.19.0",
     "mongoose": "^7.8.7",
     "multer": "^2.0.2",

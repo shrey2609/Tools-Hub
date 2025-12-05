@@ -29,6 +29,8 @@ export const createJiraTask = async (
       }
     );
 
+    
+
     const userSearch = await axios.get(
       `${JIRA_BASE_URL}/rest/api/3/user/search?query=${email}`,
       {
@@ -41,6 +43,7 @@ export const createJiraTask = async (
 
     const userAccountId = userSearch.data[0]?.accountId;
     if (!userAccountId) throw new Error("Jira accountId not found for user");
+
 
     const managerAccountId = managerSearch.data[0]?.accountId;
     if (!managerAccountId)
@@ -93,8 +96,7 @@ export const createJiraTask = async (
         issuetype: { name: "Task" },
         assignee: { accountId: userAccountId },
         reporter: { accountId: managerAccountId },
-        // priority: { name: "High" },
-        // labels: ["api-created", "zoho"],
+
 
     
         customfield_10820: email,         
@@ -117,7 +119,6 @@ export const createJiraTask = async (
         timeout: 20000, 
       }
     );
-    console.log("Task created successfully:", issueRes.data);
 
     return {
       jiraIssue: {

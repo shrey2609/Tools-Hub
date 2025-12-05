@@ -13,7 +13,6 @@ export const createJiraWebhook = async (
   }
 
   const comment = commentBody.toLowerCase();
-
   try {
     //Fetch issue details to get reporter accountId
     const issueDetails = await axios.get(
@@ -32,18 +31,14 @@ export const createJiraWebhook = async (
     const reporterAccountId = issueDetails.data.fields.reporter.accountId;
 
     if (reporterAccountId !== commentAuthorAccountId) {
-      console.log("Comment not made by the reporter. Ignoring approval.");
       throw new Error("Only the manager (reporter) can approve this request.");
     }
     if (comment.includes("approved")) {
-      console.log("Manager approved");
       return "approved";
     } else if (comment.includes("denied")) {
-      console.log("Manager denied");
       return "denied";
     }
   } catch (error) {
-    console.log("error during checking rights:", error);
     return false;
   }
 };
@@ -129,6 +124,6 @@ export const transitionChangeWithComment = async (
       }
     );
   } catch (error) {
-    console.log("Error while changing transition:", error.response);
+    throw createError(500,"Error while changing transition")
   }
 };

@@ -32,18 +32,13 @@ if (access_duration && String(access_duration).toLowerCase() !== "lifetime") {
       if (role.startsWith("roles/storage")) {
           return `resource.name.startsWith("projects/_/buckets/${name}")`;
         }
-        //BigQuery
-        // else if (role.startsWith("roles/bigquery")) {
-        //   return `resource.name.startsWith("projects/${PROJECT_ID}/datasets/${name}")`;
-        // } 
         //Pub/Sub (Topic or Subscription)
         if (role.startsWith("roles/pubsub")) {
           return `resource.name.startsWith("//pubsub.googleapis.com/projects/${PROJECT_ID}/topics/${name}") || resource.name.startsWith("//pubsub.googleapis.com/projects/${PROJECT_ID}/subscriptions/${name}")`;
         }
         //Compute Engine (VMs)
-        if (role.startsWith("roles/compute") && !name.includes("forwardingRules")) {
-          const zone = "us-central1-a";
-          return `resource.name.startsWith("//compute.googleapis.com/projects/${PROJECT_ID}/zones/${zone}/instances/${name}")`;
+        if (role.startsWith("roles/compute")){ 
+          return `resource.name.endsWith("/${name}")`;
         }
         //Load Balancer (Forwarding Rules)
         if (role.startsWith("roles/compute") && name.includes("forwardingRules")) {
