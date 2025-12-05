@@ -101,6 +101,7 @@ export async function embed_upsert(processedDocs) {
 
     const pinecone = new Pinecone();
     const pineconeIndex = pinecone.Index(config.pineconeIndex);
+    // const pineconeNamespace = pinecone.namespace(config.pineconeNamespace);
 
     // Extract the deterministic IDs you created
     const ids = processedDocs.map((chunk) => chunk.metadata.chunk_id);
@@ -108,7 +109,8 @@ export async function embed_upsert(processedDocs) {
     console.log("document is processed");
     console.log(`Upserting ${processedDocs.length} chunks to Pinecone...`);
     await PineconeStore.fromDocuments(processedDocs, embeddings, {
-      pineconeIndex,
+      pineconeIndex: pineconeIndex,
+      // namespace: pineconeNamespace,
       ids,
     });
 

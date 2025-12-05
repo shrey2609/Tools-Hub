@@ -1,9 +1,9 @@
 // config.js
 export const config = {
-  pineconeIndex: "rag-data-chatbot", // Choose a name for your Pinecone index
+  pineconeIndex: "ragdata-chatbot", // Choose a name for your Pinecone index
   pineconeHost:
-    "https://rag-data-chatbot-movckd7.svc.aped-4627-b74a.pinecone.io", // Your Pinecone index endpoint
-  pineconeNamespace: "_default_", // You can choose a namespace or leave it as "_default_"
+    "https://ragdata-chatbot-movckd7.svc.aped-4627-b74a.pinecone.io", // Your Pinecone index endpoint
+  pineconeNamespace: "__default__", // You can choose a namespace or leave it as "_default_"
   githubReposBranchMaster: [
     "trackier/webapp",
 
@@ -114,7 +114,6 @@ export const config = {
     "trackier/trackier-shopify-app-v2",
     "trackier/procuerly-frontend",
 
-   
     "trackier/trackier-publisher-app",
 
     "trackier/react-utils",
