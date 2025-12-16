@@ -117,14 +117,28 @@ const AccessFrom = () => {
               marginLeft: "8px",
             }}
           >
-            ${res.data.ticketId}
+            {res.data.ticketId}
           </a>
         </>
       );
     } catch (error) {
-      console.error("Error submitting form:", error);
       toast.dismiss(toastId);
-      toast.error("Something went wrong!");
+      console.error("Error submitting form:", error);
+      const errMessage = error.response?.data?.message;
+      const status = error.response?.status;
+
+      if (status === 400) {
+      toast.error(errMessage || "Required fields missing");
+      return;
+    }
+
+      if (status === 404) {
+        toast.error(errMessage || "User with this email not found");
+        return;
+      }
+
+      // toast.dismiss(toastId);
+      toast.error(errMessage || "Something went wrong!");
     } finally {
       setLoading(false);
     }
