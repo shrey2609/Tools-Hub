@@ -1,4 +1,3 @@
-import Zoho from "../models/zohoRM.js";
 import axios from "axios";
 import qs from "qs";
 import { getAccessToken } from "../seed/zohohelper.js";
@@ -8,55 +7,6 @@ dotenv.config();
 
 const ZOHO_BASE_URL = process.env.ZOHO_BASE_URL;
 
-
-// Function to get/refresh Zoho Access Token
-export const getOauthToken = async (req, res) => {
-  try {
-    const data = qs.stringify({
-      grant_type: "authorization_code",
-      client_id: process.env.ZOHO_CLIENT_ID,
-      client_secret: process.env.ZOHO_CLIENT_SECRET,
-      redirect_uri: process.env.ZOHO_REDIRECT_URI,
-      code: process.env.ZOHO_CODE,
-      access_type: "offline",
-      prompt: "consent"
-    });
-
-    const response = await axios.post(
-      "https://accounts.zoho.in/oauth/v2/token",
-      data,
-      {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      }
-    );
-
-    const { access_token, refresh_token, expires_in } = response.data;
-
-    await Zoho.findOneAndUpdate(
-      { key: 'zoho-global-token' },
-      {
-        access_token,
-        refresh_token,
-        expires_in,
-        last_updated: new Date(),
-        key: 'zoho-global-token',
-      },
-      { upsert: true, new: true }
-    );
-
-    return res.status(200).json({
-      message: "Tokens fetched successfully",
-      access_token,
-      refresh_token,
-    });
-  } catch (error) {
-    console.error(
-      "Error fetching oauth token from Zoho People:",
-      error.response?.data || error.message
-    );
-    return res.status(500).json({ error: "Failed to fetch OAuth token" });
-  }
-};
 
 // fetches the employee reporting manager from zoho
 export const getReportingManagerEmail = async(email) => {

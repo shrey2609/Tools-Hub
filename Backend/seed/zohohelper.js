@@ -1,32 +1,23 @@
-import Zoho from "../models/zohoRM.js";
 import axios from "axios";
 import qs from "qs";
-// import dotenv from "dotenv";
-// dotenv.config();
+
+
+let cachedToken = null;
+let tokenExpiry = 0;
 
 
 export const getAccessToken = async () => {
-  const tokenData = await Zoho.findOne({ key: "zoho-global-token" });
 
-  if (!tokenData) throw new Error("No Zoho token found in DB");
-
-  const { access_token, refresh_token, last_updated, expires_in } = tokenData;
-
-  const expiryBuffer = 5 * 60 * 1000; 
-    
-  const expiryTime = new Date(last_updated).getTime() + expires_in * 1000;
-  const isExpired = Date.now() > expiryTime - expiryBuffer;
-
-
-  if (!isExpired) {
-    return access_token;
+  const now = Date.now();
+  if (cachedToken && now < tokenExpiry - 5 * 60 * 1000) {
+    return cachedToken;
   }
 
   const data = qs.stringify({
     grant_type: "refresh_token",
     client_id: process.env.ZOHO_CLIENT_ID,
     client_secret: process.env.ZOHO_CLIENT_SECRET,
-    refresh_token: refresh_token,
+    refresh_token: process.env.ZOHO_REFRESH_TOKEN,
   });
 
   try {
@@ -38,24 +29,10 @@ export const getAccessToken = async () => {
       }
     );
 
-    const {
-      access_token: newAccessToken,
-      expires_in: newExpiresIn,
-      refresh_token: new_refresh_token,
-    } = response.data;
+  cachedToken = response.data.access_token;
+  tokenExpiry = now + response.data.expires_in * 1000;    
 
-    await Zoho.findOneAndUpdate(
-      { key: "zoho-global-token" },
-      {
-        access_token: newAccessToken,
-        refresh_token: new_refresh_token || refresh_token,
-        expires_in: newExpiresIn,
-        last_updated: new Date(),
-      }
-    );
-    
-
-    return newAccessToken;
+  return cachedToken;
   } catch (error) {
     console.error(
       "Error refreshing Zoho access token:",

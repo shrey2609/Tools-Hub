@@ -7,7 +7,7 @@ import path from "path";
 import bodyParser from 'body-parser';
 
 import toolRoutes from "./routes/ToolRoutes.js";
-import zohoRoutes from "./routes/zohoRoutes.js"
+import accessRoutes from "./routes/accessRoutes.js"
 
 
 dotenv.config();
@@ -28,7 +28,7 @@ app.use("/Image", express.static(path.join(__dirname, "Public/Image")));
 
 // Routes
 app.use("/api/tools", toolRoutes);
-app.use("/api/access", zohoRoutes)
+app.use("/api/access", accessRoutes)
 
 
 
